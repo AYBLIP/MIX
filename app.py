@@ -21,7 +21,7 @@ optimizer_options = ['Adam', 'SGD', 'RMSprop']
 optimizer_choice = st.selectbox("Optimizer", optimizer_options)
 
 # Path model
-model_path = f'best_model_EfficientNet_{optimizer_choice}.h5'
+model_path = f'best_model_EfficientNetB0_{optimizer_choice}.h5'
 
 # Muat model
 try:
