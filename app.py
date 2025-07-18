@@ -6,8 +6,7 @@ import numpy as np
 st.title("Klasifikasi Kue dengan Streamlit")
 
 # Pilihan model
-model_options = ['MobileNetV2', 'EfficientNetB0']
-model_choice = st.selectbox("Pilih Model", model_options)
+model_choice = 'EfficientNetB0'
 
 # Pilihan optimizer
 optimizer_options = ['Adam', 'SGD', 'RMSprop']
