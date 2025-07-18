@@ -6,7 +6,7 @@ import numpy as np
 st.title("Klasifikasi Kue dengan Streamlit")
 
 # Pilihan model arsitektur
-model_options = ['MobileNetV2', 'EfficientNetB0', 'NASNetMobile']
+model_options = ['EfficientNetB0']
 model_choice = st.selectbox("Pilih Arsitektur Model", model_options)
 
 # Pilihan optimizer
