@@ -18,7 +18,7 @@ try:
     model = tf.keras.models.load_model(
         model_path
     )
-    st.success(f"Model {model_choice} dengan optimizer {optimizer_choice} berhasil dimuat.")
+    st.success(f"Model dengan optimizer {optimizer_choice} berhasil dimuat.")
 except:
     model = None
     st.error(f"Gagal memuat model dari {model_path}. Pastikan file model tersedia.")
