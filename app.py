@@ -27,17 +27,22 @@ model_path = f'best_model_{model_choice}_{optimizer_choice}.keras'
 
 # Muat model
 try:
-    model = tf.keras.models.load_model(
-        model_path,
-        custom_objects={
-            'FixedDropout': FixedDropout,
-            'swish': swish
-        }
-    )
-    st.success(f"Model {optimizer_choice} berhasil dimuat.")
-except:
+    if model_choice == 'MobileNetV2':
+        # Jika MobileNetV2, muat tanpa custom_objects
+        model = tf.keras.models.load_model(model_path)
+    else:
+        # Jika EfficientNetB0, muat dengan custom_objects
+        model = tf.keras.models.load_model(
+            model_path,
+            custom_objects={
+                'swish': swish,
+                'FixedDropout': FixedDropout
+            }
+        )
+    st.success(f"Model {model_choice} dengan optimizer {optimizer_choice} berhasil dimuat.")
+except Exception as e:
     model = None
-    st.error(f"Gagal memuat model dari {model_path}. Pastikan file model tersedia.")
+    st.error(f"Gagal memuat model dari {model_path}. Error: {str(e)}")
 
 # Daftar kelas
 kelas = ['Kue Dadar Gulung', 'Kue Kastengel', 'Kue Klepon', 'Kue Lapis', 'Kue Lumpur', 'Kue Putri Salju', 'Kue Risoles', 'Kue Serabi']
