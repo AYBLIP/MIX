@@ -5,34 +5,31 @@ import numpy as np
 
 st.title("Klasifikasi Kue dengan Streamlit")
 
-# Pilihan model arsitektur
-model_options = ['MobileNetV2', 'EfficientNetB0', 'NASNetMobile']
-model_choice = st.selectbox("Pilih Arsitektur Model", model_options)
+# Pilihan model
+model_options = ['MobileNetV2', 'EfficientNetB0']
+model_choice = st.selectbox("Pilih Model", model_options)
 
 # Pilihan optimizer
 optimizer_options = ['Adam', 'SGD', 'RMSprop']
 optimizer_choice = st.selectbox("Optimizer", optimizer_options)
 
-# Buat fungsi untuk memuat model berdasarkan pilihan
-def load_model(model_choice, optimizer_choice):
-    model_path = f'model_{model_choice}_{optimizer_choice}.h5'
-    try:
-        model = tf.keras.models.load_model(model_path)
-        return model
-    except:
-        return None
+# Gabungkan pilihan model dan optimizer untuk menentukan path model
+model_path = f'model_{model_choice}_{optimizer_choice}.h5'
 
-model = load_model(model_choice, optimizer_choice)
-
-if model:
+# Muat model
+try:
+    model = tf.keras.models.load_model(
+        model_path
+    )
     st.success(f"Model {model_choice} dengan optimizer {optimizer_choice} berhasil dimuat.")
-else:
-    st.error("Gagal memuat model. Pastikan file model tersedia dan sesuai.")
+except:
+    model = None
+    st.error(f"Gagal memuat model dari {model_path}. Pastikan file model tersedia.")
 
 # Daftar kelas
 kelas = ['Kue Dadar Gulung', 'Kue Kastengel', 'Kue Klepon', 'Kue Lapis', 'Kue Lumpur', 'Kue Putri Salju', 'Kue Risoles', 'Kue Serabi']
 
-# Unggah gambar
+# Unggah beberapa gambar sekaligus
 uploaded_files = st.file_uploader("Unggah beberapa gambar kue Anda", type=["jpg", "jpeg", "png"], accept_multiple_files=True)
 
 if uploaded_files:
@@ -45,7 +42,7 @@ if uploaded_files:
         img_array = image.img_to_array(img)
         img_array = np.expand_dims(img_array, axis=0) / 255.0
 
-        # Prediksi
+        # Prediksi jika model berhasil dimuat
         if model:
             pred = model.predict(img_array)
             pred_kelas = np.argmax(pred, axis=1)[0]
@@ -55,4 +52,4 @@ if uploaded_files:
             st.write(f"Prediksi: **{kelas_terpilih}**")
             st.write(f"Kepercayaan: {confidence:.2f}%")
         else:
-            st.warning("Model belum berhasil dimuat. Harap pilih arsitektur model dan optimizer yang sesuai.")
+            st.warning("Model belum berhasil dimuat. Harap pilih model dan optimizer yang sesuai serta pastikan file model tersedia.")
