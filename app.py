@@ -22,7 +22,7 @@ def load_model(model_choice, optimizer_choice):
     except:
         return None
 
-model = load_model(model_choice, optimizer_choice)
+model = load_model(optimizer_choice)
 
 if model:
     st.success(f"Model {model_choice} dengan optimizer {optimizer_choice} berhasil dimuat.")
