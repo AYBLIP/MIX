@@ -12,15 +12,15 @@ model_choice = 'EfficientNetB0'
 optimizer_options = ['Adam', 'SGD', 'RMSprop']
 optimizer_choice = st.selectbox("Optimizer", optimizer_options)
 
-# Gabungkan pilihan model dan optimizer untuk menentukan path model
+# Path model
 model_path = f'best_model_{model_choice}_{optimizer_choice}.h5'
 
 # Muat model
 try:
     model = tf.keras.models.load_model(
-        model_path
+        model_path,
     )
-    st.success(f"Model {model_choice} dengan optimizer {optimizer_choice} berhasil dimuat.")
+    st.success(f"Model {optimizer_choice} berhasil dimuat.")
 except:
     model = None
     st.error(f"Gagal memuat model dari {model_path}. Pastikan file model tersedia.")
