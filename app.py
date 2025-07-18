@@ -6,7 +6,7 @@ import numpy as np
 st.title("Klasifikasi Kue dengan Streamlit")
 
 # Pilihan model arsitektur
-model_options = ['EfficientNetB0']
+model_options = ['MobileNetV2', 'EfficientNetB0', 'NASNetMobile']
 model_choice = st.selectbox("Pilih Arsitektur Model", model_options)
 
 # Pilihan optimizer
@@ -15,12 +15,14 @@ optimizer_choice = st.selectbox("Optimizer", optimizer_options)
 
 # Buat fungsi untuk memuat model berdasarkan pilihan
 def load_model(model_choice, optimizer_choice):
-    model_path = f'best_model_{model_choice}_{optimizer_choice}.h5'
+    model_path = f'model_{model_choice}_{optimizer_choice}.h5'
     try:
         model = tf.keras.models.load_model(model_path)
         return model
     except:
         return None
+
+model = load_model(model_choice, optimizer_choice)
 
 if model:
     st.success(f"Model {model_choice} dengan optimizer {optimizer_choice} berhasil dimuat.")
