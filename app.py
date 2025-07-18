@@ -16,11 +16,14 @@ class FixedDropout(tf.keras.layers.Dropout):
 st.title("Klasifikasi Kue dengan Streamlit")
 
 # Pilihan optimizer
+model_options = ['MobileNetV2', 'EfficientNetB0']
+model_choice = st.selectbox("Pilih Model", model_options)
+
 optimizer_options = ['Adam', 'SGD', 'RMSprop']
 optimizer_choice = st.selectbox("Optimizer", optimizer_options)
 
 # Path model
-model_path = f'best_model_EfficientNetB0_{optimizer_choice}.h5'
+model_path = f'best_model_{model_options}_{optimizer_choice}.h5'
 
 # Muat model
 try:
