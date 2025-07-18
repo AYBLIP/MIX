@@ -4,45 +4,24 @@ from tensorflow.keras.utils import register_keras_serializable
 from tensorflow.keras.preprocessing import image
 import numpy as np
 
-@register_keras_serializable()
-def swish(x):
-    return x * tf.nn.sigmoid(x)
-
-@register_keras_serializable()
-class FixedDropout(tf.keras.layers.Dropout):
-    def call(self, inputs, training=None):
-        return super().call(inputs, training=True)
-
 st.title("Klasifikasi Kue dengan Streamlit")
-
 # Pilihan optimizer
-model_options = ['MobileNetV2', 'EfficientNetB0']
-model_choice = st.selectbox("Pilih Model", model_options)
-
 optimizer_options = ['Adam', 'SGD', 'RMSprop']
 optimizer_choice = st.selectbox("Optimizer", optimizer_options)
 
 # Path model
-model_path = f'best_model_{model_choice}_{optimizer_choice}.h5'
+model_path = f'best_model_{optimizer_choice}.h5'
 
 # Muat model
+# Muat model
 try:
-    if model_choice == 'MobileNetV2':
-        # Jika MobileNetV2, muat tanpa custom_objects
-        model = tf.keras.models.load_model(model_path)
-    else:
-        # Jika EfficientNetB0, muat dengan custom_objects
-        model = tf.keras.models.load_model(
-            model_path,
-            custom_objects={
-                'swish': swish,
-                'FixedDropout': FixedDropout
-            }
-        )
-    st.success(f"Model {model_choice} dengan optimizer {optimizer_choice} berhasil dimuat.")
-except Exception as e:
+    model = tf.keras.models.load_model(
+        model_path,
+    )
+    st.success(f"Model {optimizer_choice} berhasil dimuat.")
+except:
     model = None
-    st.error(f"Gagal memuat model dari {model_path}. Error: {str(e)}")
+    st.error(f"Gagal memuat model dari {model_path}. Pastikan file model tersedia.")
 
 # Daftar kelas
 kelas = ['Kue Dadar Gulung', 'Kue Kastengel', 'Kue Klepon', 'Kue Lapis', 'Kue Lumpur', 'Kue Putri Salju', 'Kue Risoles', 'Kue Serabi']
@@ -68,6 +47,6 @@ if uploaded_files:
             confidence = np.max(pred) * 100
 
             st.write(f"Prediksi: **{kelas_terpilih}**")
-            st.write(f"Kepercayaan: {confidence:.2f}%")
+            st.write(f"Akurasi: {confidence:.2f}%")
         else:
-            st.warning("Model belum berhasil dimuat. Harap pilih model dan optimizer yang sesuai serta pastikan file model tersedia.")
+            st.warning("Model belum berhasil dimuat. Harap pilih optimizer dan pastikan file model tersedia.")
