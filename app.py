@@ -14,7 +14,7 @@ optimizer_options = ['Adam', 'SGD', 'RMSprop']
 optimizer_choice = st.selectbox("Optimizer", optimizer_options)
 
 # Gabungkan pilihan model dan optimizer untuk menentukan path model
-model_path = f'best_model_{optimizer_choice}.h5'
+model_path = f'best_model_MobileNetV2_{optimizer_choice}.h5'
 
 # Muat model
 try:
