@@ -3,22 +3,32 @@ import tensorflow as tf
 from tensorflow.keras.preprocessing import image
 import numpy as np
 
-st.title("Klasifikasi Kue dengan Streamlit")
+@register_keras_serializable()
+def swish(x):
+    return x * tf.nn.sigmoid(x)
 
-# Pilihan model
-model_choice = 'EfficientNetB0'
+@register_keras_serializable()
+class FixedDropout(tf.keras.layers.Dropout):
+    def call(self, inputs, training=None):
+        return super().call(inputs, training=True)
+
+st.title("Klasifikasi Kue dengan Streamlit")
 
 # Pilihan optimizer
 optimizer_options = ['Adam', 'SGD', 'RMSprop']
 optimizer_choice = st.selectbox("Optimizer", optimizer_options)
 
 # Path model
-model_path = f'best_model_{model_choice}_{optimizer_choice}.h5'
+model_path = f'best_model_EfficientNetB0_{optimizer_choice}.h5'
 
 # Muat model
 try:
     model = tf.keras.models.load_model(
         model_path,
+        custom_objects={
+            'FixedDropout': FixedDropout,
+            'swish': swish
+        }
     )
     st.success(f"Model {optimizer_choice} berhasil dimuat.")
 except:
