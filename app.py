@@ -6,15 +6,15 @@ import numpy as np
 st.title("Klasifikasi Kue dengan Streamlit")
 
 # Pilihan model
-model_options = ['MobileNetV2', 'EfficientNetB0']
-model_choice = st.selectbox("Pilih Model", model_options)
+# model_options = ['MobileNetV2', 'EfficientNetB0']
+# model_choice = st.selectbox("Pilih Model", model_options)
 
 # Pilihan optimizer
 optimizer_options = ['Adam', 'SGD', 'RMSprop']
 optimizer_choice = st.selectbox("Optimizer", optimizer_options)
 
 # Gabungkan pilihan model dan optimizer untuk menentukan path model
-model_path = f'best_model_{model_choice}_{optimizer_choice}.h5'
+model_path = f'best_model_{optimizer_choice}.h5'
 
 # Muat model
 try:
