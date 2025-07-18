@@ -23,7 +23,7 @@ optimizer_options = ['Adam', 'SGD', 'RMSprop']
 optimizer_choice = st.selectbox("Optimizer", optimizer_options)
 
 # Path model
-model_path = f'best_model_{model_choice}_{optimizer_choice}.h5'
+model_path = f'best_model_{model_choice}_{optimizer_choice}.keras'
 
 # Muat model
 try:
