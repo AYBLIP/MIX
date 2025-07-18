@@ -1,0 +1,8 @@
+streamlit
+tensorflow
+keras
+efficientnet
+scikit-learn
+matplotlib
+seaborn
+numpy
