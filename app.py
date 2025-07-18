@@ -24,9 +24,9 @@ optimizer_choice = st.selectbox("Optimizer", optimizer_options)
 
 # Path model
 if model_choice == 'MobileNetV2':
-    model_path = f'model_{model_choice}_{optimizer_choice}.keras'  # Format .keras
+    model_path = f'best_model_{model_choice}_{optimizer_choice}.keras'  # Format .keras
 else:
-    model_path = f'model_{model_choice}_{optimizer_choice}.h5'     # Format .h5
+    model_path = f'best_model_{model_choice}_{optimizer_choice}.h5'     # Format .h5
 # Muat model sesuai pilihan
 try:
     if model_choice == 'MobileNetV2':
