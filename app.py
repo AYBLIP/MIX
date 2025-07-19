@@ -13,12 +13,18 @@ class FixedDropout(tf.keras.layers.Dropout):
         return super().call(inputs, training=True)
 
 st.title("Klasifikasi Kue dengan Streamlit")
+# Membuat kolom untuk dropdown Model dan Optimizer
+col1, col2 = st.columns(2)
+
+
 
 # Pilihan model dan optimizer
 model_options = ['MobileNetV2', 'EfficientNetB0', 'NASNetMobile']
 optimizer_options = ['Adam', 'SGD', 'RMSprop']
-model_choice = st.selectbox("Model", model_options)
-optimizer_choice = st.selectbox("Optimizer", optimizer_options)
+with col1:
+    model_choice = st.selectbox("Model", model_options)
+with col2:
+    optimizer_choice = st.selectbox("Optimizer", optimizer_options)
 
 # Memuat model berdasarkan pilihan
 try:
