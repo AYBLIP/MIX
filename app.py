@@ -35,21 +35,21 @@ else:
     if model_choice in ['MobileNetV2', 'NASNetMobile']:
         model_path = f'best_model_{model_choice}_{optimizer_choice}.h5'
     else:
-    if model_choice in ['EfficientNetB0']:
-        model_path = f'best_model_{model_choice}_{optimizer_choice}.h5'
-        model = tf.keras.models.load_model(model_path)
-    else:
-        model = tf.keras.models.load_model(
-            model_path,
-            custom_objects={
-                'swish': swish,
-                'FixedDropout': FixedDropout
-            }
-        )
-    st.success(f"Model {model_choice} dengan optimizer {optimizer_choice} berhasil dimuat.")
-except Exception as e:
-    model = None
-    st.error(f"Gagal memuat model dari {model_path}. Error: {str(e)}")
+        if model_choice in ['EfficientNetB0']:
+            model_path = f'best_model_{model_choice}_{optimizer_choice}.h5'
+            model = tf.keras.models.load_model(model_path)
+        else:
+            model = tf.keras.models.load_model(
+                model_path,
+                custom_objects={
+                    'swish': swish,
+                    'FixedDropout': FixedDropout
+                }
+            )
+        st.success(f"Model {model_choice} dengan optimizer {optimizer_choice} berhasil dimuat.")
+    except Exception as e:
+        model = None
+        st.error(f"Gagal memuat model dari {model_path}. Error: {str(e)}")
 
 # Daftar kelas
 kelas = ['Kue Dadar Gulung', 'Kue Kastengel', 'Kue Klepon', 'Kue Lapis', 'Kue Lumpur', 'Kue Putri Salju', 'Kue Risoles', 'Kue Serabi']
