@@ -37,7 +37,7 @@ try:
         # Unduh file dari Google Drive
         gdown.download(f'https://drive.google.com/uc?id={file_id}', model_filename, quiet=False)
         model_path = model_filename
-            model = tf.keras.models.load_model(model_path)
+        model = tf.keras.models.load_model(model_path)
         st.success(f"Model {model_choice} dengan optimizer {optimizer_choice} berhasil dimuat.")
 except Exception as e:
     st.error(f"Gagal memuat model: {str(e)}")
