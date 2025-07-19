@@ -47,9 +47,9 @@ else:
                 }
             )
         st.success(f"Model {model_choice} dengan optimizer {optimizer_choice} berhasil dimuat.")
-    except Exception as e:
-        model = None
-        st.error(f"Gagal memuat model dari {model_path}. Error: {str(e)}")
+        except Exception as e:
+            model = None
+            st.error(f"Gagal memuat model dari {model_path}. Error: {str(e)}")
 
 # Daftar kelas
 kelas = ['Kue Dadar Gulung', 'Kue Kastengel', 'Kue Klepon', 'Kue Lapis', 'Kue Lumpur', 'Kue Putri Salju', 'Kue Risoles', 'Kue Serabi']
