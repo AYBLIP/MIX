@@ -39,9 +39,7 @@ else:
 
 # Muat model
 try:
-    if model_choice in ['MobileNetV2', 'NASNetMobile']:
-        model = tf.keras.models.load_model(model_path)
-    else:
+    if model_choice in ['EfficientNetB0']:
         model = tf.keras.models.load_model(
             model_path,
             custom_objects={
