@@ -4,33 +4,6 @@ from tensorflow.keras.preprocessing import image
 import numpy as np
 import gdown
 
-
-st.markdown(
-    """
-    <style>
-    @keyframes rainbow {
-        0% {background-position: 0%}
-        100% {background-position: 100%}
-    }
-
-    .rainbow-text {
-        font-size: 48px;
-        font-weight: bold;
-        text-align: center;
-        background: linear-gradient(270deg, red, orange, yellow, green, blue, indigo, violet, red);
-        background-size: 600% 600%;
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        animation: rainbow 10s linear infinite;
-        margin: 20px 0;
-    }
-    </style>
-
-    <h1 class="rainbow-text">
-        Klasifikasi Kue dengan Streamlit
-    </h1>
-    """, unsafe_allow_html=True
-)
 # Definisi fungsi dan kelas untuk efficientneb0
 def swish(x):
     return x * tf.nn.sigmoid(x)
@@ -93,7 +66,7 @@ if uploaded_files:
     for uploaded_file in uploaded_files:
         # Baca dan tampilkan gambar
         img = image.load_img(uploaded_file, target_size=(224, 224))
-        st.image(img, caption=uploaded_file.name, use_container_width=True)
+        st.image(img, caption=uploaded_file.name, use_container_width=1)
 
         # Pra-pemrosesan gambar
         img_array = image.img_to_array(img)
