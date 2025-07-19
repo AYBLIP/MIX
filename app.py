@@ -12,7 +12,7 @@ class FixedDropout(tf.keras.layers.Dropout):
     def call(self, inputs, training=None):
         return super().call(inputs, training=True)
 
-st.title("Klasifikasi Kue dengan Streamlit")
+st.title("Klasifikasi Kue tradisional Indonesia")
 # Membuat kolom untuk dropdown Model dan Optimizer
 col1, col2 = st.columns(2)
 
