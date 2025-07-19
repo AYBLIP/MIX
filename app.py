@@ -29,7 +29,7 @@ import tensorflow as tf
 
 try:
     if model_choice == 'NASNetMobile' and optimizer_choice == 'Adam':
-        gdrive_link = 'https://drive.google.com/file/d/FILE_ID/view?usp=sharing'  # Ganti dengan link nyata
+        gdrive_link = 'https://drive.google.com/file/d/1f4KoGXAed_E14IpOWQllAH_uj0i53EkA/view?usp=drive_link'  # Ganti dengan link nyata
         # Ekstrak file ID dari link
         file_id = gdrive_link.split('/d/')[1].split('/')[0]
         # Nama file lokal
