@@ -33,7 +33,7 @@ try:
         # Ekstrak file ID dari link
         file_id = gdrive_link.split('/d/')[1].split('/')[0]
         # Nama file lokal
-        model_filename = 'NASNetMobile_Adam.keras'
+        model_filename = 'best_modelNASNetMobile_Adam.h5'
         # Unduh file dari Google Drive
         gdown.download(f'https://drive.google.com/uc?id={file_id}', model_filename, quiet=False)
         model_path = model_filename
