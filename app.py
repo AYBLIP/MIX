@@ -33,9 +33,9 @@ if model_choice == 'NASNetMobile' and optimizer_choice == 'Adam':
     model_path = model_filename
 else:
     if model_choice in ['MobileNetV2', 'NASNetMobile']:
-        model_path = f'best_model_{model_choice}_{optimizer_choice}.keras'
-    else:
         model_path = f'best_model_{model_choice}_{optimizer_choice}.h5'
+    else:
+        model_path = f'best_model_{model_choice}_{optimizer_choice}.keras'
 
 # Muat model
 try:
