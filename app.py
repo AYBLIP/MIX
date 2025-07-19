@@ -4,7 +4,21 @@ from tensorflow.keras.preprocessing import image
 import numpy as np
 import gdown
 
-# Definisi fungsi dan kelas
+
+st.markdown(
+    """
+    <h1 style="
+        background: linear-gradient(to right, red, orange, yellow, green, blue, indigo, violet);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        font-size: 48px;
+        font-weight: bold;
+        text-align: center;">
+        Klasifikasi Kue dengan Streamlit
+    </h1>
+    """, unsafe_allow_html=True
+)
+# Definisi fungsi dan kelas untuk efficientneb0
 def swish(x):
     return x * tf.nn.sigmoid(x)
 
@@ -17,8 +31,7 @@ st.title("Klasifikasi Kue dengan Streamlit")
 # Pilihan model dan optimizer
 model_options = ['MobileNetV2', 'EfficientNetB0', 'NASNetMobile']
 optimizer_options = ['Adam', 'SGD', 'RMSprop']
-
-model_choice = st.selectbox("Pilih Model", model_options)
+model_choice = st.selectbox("Model", model_options)
 optimizer_choice = st.selectbox("Optimizer", optimizer_options)
 
 # Memuat model berdasarkan pilihan
