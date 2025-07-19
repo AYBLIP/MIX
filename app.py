@@ -63,10 +63,17 @@ uploaded_files = st.file_uploader(
 )
 
 if uploaded_files:
-    for uploaded_file in uploaded_files:
-        # Baca dan tampilkan gambar
+    # Membagi tampilan ke dalam sejumlah kolom sesuai jumlah gambar
+    col_count = min(len(uploaded_files), 4)  # maksimal 4 kolom agar tetap rapi
+    cols = st.columns(col_count)
+    
+    for idx, uploaded_file in enumerate(uploaded_files):
+        # Pilih kolom berdasarkan indeks
+        col = cols[idx % col_count]
+        
+        # Baca dan tampilkan gambar di kolom yang dipilih
         img = image.load_img(uploaded_file, target_size=(224, 224))
-        st.image(img, caption=uploaded_file.name, use_container_width=1)
+        col.image(img, caption=uploaded_file.name, use_container_width=True)
 
         # Pra-pemrosesan gambar
         img_array = image.img_to_array(img)
@@ -79,7 +86,7 @@ if uploaded_files:
             kelas_terpilih = kelas[pred_kelas]
             confidence = np.max(pred) * 100
 
-            st.write(f"Prediksi: **{kelas_terpilih}**")
-            st.write(f"Kepercayaan: {confidence:.2f}%")
+            col.write(f"Prediksi: **{kelas_terpilih}**")
+            col.write(f"Kepercayaan: {confidence:.2f}%")
         else:
-            st.warning("Model belum berhasil dimuat. Harap pilih model dan optimizer yang sesuai serta pastikan file model tersedia.")
+            col.warning("Model belum berhasil dimuat.")
