@@ -29,7 +29,8 @@ import tensorflow as tf
 
 try:
     if model_choice == 'NASNetMobile' and optimizer_choice == 'Adam':
-        gdrive_link = 'https://drive.google.com/file/d/1f4KoGXAed_E14IpOWQllAH_uj0i53EkA/view?usp=drive_link'  # Ganti dengan link nyata
+        # Link Google Drive untuk model NASNetMobile dengan optimizer Adam
+        gdrive_link = 'https://drive.google.com/file/d/1f4KoGXAed_E14IpOWQllAH_uj0i53EkA/view?usp=drive_link'
         # Ekstrak file ID dari link
         file_id = gdrive_link.split('/d/')[1].split('/')[0]
         # Nama file lokal
@@ -39,32 +40,26 @@ try:
         model_path = model_filename
         # Muat model dari file
         model = tf.keras.models.load_model(model_path)
-            st.success(f"Model {model_choice} dengan optimizer {optimizer_choice} berhasil dimuat.")
+        st.success(f"Model {model_choice} dengan optimizer {optimizer_choice} berhasil dimuat.")
+    elif model_choice in ['MobileNetV2', 'NASNetMobile', 'EfficientNetB0']:
+        # Path model berdasarkan pilihan
+        model_path = f'best_model_{model_choice}_{optimizer_choice}.h5'
+        if model_choice == 'EfficientNetB0':
+            # Muat model dengan custom_objects
+            model = tf.keras.models.load_model(
+                model_path,
+                custom_objects={
+                    'swish': swish,
+                    'FixedDropout': FixedDropout
+                }
+            )
         else:
-            model = None
-            st.warning("Model pilihan tidak dikenali.")
-except Exception as e:
-    st.error(f"Terjadi kesalahan saat memuat model: {e}")
+            # Muat model tanpa custom_objects
+            model = tf.keras.models.load_model(model_path)
+        st.success(f"Model {model_choice} dengan optimizer {optimizer_choice} berhasil dimuat.")
     else:
-        # Untuk model lain
-        if model_choice in ['MobileNetV2', 'NASNetMobile', 'EfficientNetB0']:
-            model_path = f'best_model_{model_choice}_{optimizer_choice}.h5'
-            # Jika model adalah EfficientNetB0, muat model dengan custom_objects
-            if model_choice == 'EfficientNetB0':
-                model = tf.keras.models.load_model(
-                    model_path,
-                    custom_objects={
-                        'swish': swish,
-                        'FixedDropout': FixedDropout
-                    }
-                )
-            else:
-                # Untuk model lain tanpa custom_objects
-                model = tf.keras.models.load_model(model_path)
-            st.success(f"Model {model_choice} dengan optimizer {optimizer_choice} berhasil dimuat.")
-        else:
-            model = None
-            st.warning("Model pilihan tidak dikenali.")
+        model = None
+        st.warning("Model pilihan tidak dikenali.")
 except Exception as e:
     st.error(f"Terjadi kesalahan saat memuat model: {e}")
 # Daftar kelas
