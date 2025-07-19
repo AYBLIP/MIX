@@ -35,8 +35,8 @@ else:
     if model_choice in ['MobileNetV2', 'NASNetMobile']:
         model_path = f'best_model_{model_choice}_{optimizer_choice}.h5'
     else:
-    try:
-    if model_choice in ['EfficientNetB0']:
+        try:
+        if model_choice in ['EfficientNetB0']:
         model = tf.keras.models.load_model(
             model_path,
             custom_objects={
