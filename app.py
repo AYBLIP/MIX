@@ -37,29 +37,31 @@ try:
         # Unduh file dari Google Drive
         gdown.download(f'https://drive.google.com/uc?id={file_id}', model_filename, quiet=False)
         model_path = model_filename
+        # Muat model dari file
         model = tf.keras.models.load_model(model_path)
         st.success(f"Model {model_choice} dengan optimizer {optimizer_choice} berhasil dimuat.")
 except Exception as e:
     st.error(f"Gagal memuat model: {str(e)}")
-            else:
-                # Untuk model lain
-                if model_choice in ['MobileNetV2', 'NASNetMobile', 'EfficientNetB0']:
-                    model_path = f'best_model_{model_choice}_{optimizer_choice}.h5'
-                    # Jika model adalah EfficientNetB0, muat model dengan custom_objects
-                    if model_choice == 'EfficientNetB0':
-                        model = tf.keras.models.load_model(
-                            model_path,
-                            custom_objects={
-                                'swish': swish,
-                                'FixedDropout': FixedDropout
-                            }
-                        )
-                    else:
-                        # Untuk model lain tanpa custom_objects
-                        model = tf.keras.models.load_model(model_path)
-                    st.success(f"Model {model_choice} dengan optimizer {optimizer_choice} berhasil dimuat.")
-        except Exception as e:
-            st.error(f"Gagal memuat model: {str(e)}")
+else:
+    # Untuk model lain
+    if model_choice in ['MobileNetV2', 'NASNetMobile', 'EfficientNetB0']:
+        model_path = f'best_model_{model_choice}_{optimizer_choice}.h5'
+        # Jika model adalah EfficientNetB0, muat model dengan custom_objects
+        if model_choice == 'EfficientNetB0':
+            model = tf.keras.models.load_model(
+                model_path,
+                custom_objects={
+                    'swish': swish,
+                    'FixedDropout': FixedDropout
+                }
+            )
+        else:
+            # Untuk model lain tanpa custom_objects
+            model = tf.keras.models.load_model(model_path)
+        st.success(f"Model {model_choice} dengan optimizer {optimizer_choice} berhasil dimuat.")
+    else:
+        model = None
+        st.warning("Model pilihan tidak dikenali.")
 # Daftar kelas
 kelas = ['Kue Dadar Gulung', 'Kue Kastengel', 'Kue Klepon', 'Kue Lapis', 'Kue Lumpur', 'Kue Putri Salju', 'Kue Risoles', 'Kue Serabi']
 
