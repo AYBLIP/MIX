@@ -7,13 +7,26 @@ import gdown
 
 st.markdown(
     """
-    <h1 style="
-        background: linear-gradient(to right, red, orange, yellow, green, blue, indigo, violet);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
+    <style>
+    @keyframes rainbow {
+        0% {background-position: 0%}
+        100% {background-position: 100%}
+    }
+
+    .rainbow-text {
         font-size: 48px;
         font-weight: bold;
-        text-align: center;">
+        text-align: center;
+        background: linear-gradient(270deg, red, orange, yellow, green, blue, indigo, violet, red);
+        background-size: 600% 600%;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        animation: rainbow 10s linear infinite;
+        margin: 20px 0;
+    }
+    </style>
+
+    <h1 class="rainbow-text">
         Klasifikasi Kue dengan Streamlit
     </h1>
     """, unsafe_allow_html=True
