@@ -37,8 +37,6 @@ else:
     else:
         if model_choice in ['EfficientNetB0']:
             model_path = f'best_model_{model_choice}_{optimizer_choice}.h5'
-            model = tf.keras.models.load_model(model_path)
-        else:
             model = tf.keras.models.load_model(
                 model_path,
                 custom_objects={
