@@ -2,6 +2,7 @@ import streamlit as st
 import tensorflow as tf
 from tensorflow.keras.preprocessing import image
 import numpy as np
+import gdown
 
 st.title("Klasifikasi Kue dengan Streamlit")
 
