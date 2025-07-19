@@ -63,30 +63,30 @@ uploaded_files = st.file_uploader(
 )
 
 if uploaded_files:
-    # Membuat kolom untuk gambar dan hasil prediksi
-    col1, col2 = st.columns([1, 1])  # Membagi kolom sama besar
+    # Membagi tampilan ke dalam sejumlah kolom sesuai jumlah gambar
+    col_count = min(len(uploaded_files), 4)  # maksimal 4 kolom agar tetap rapi
+    cols = st.columns(col_count)
     
-    for uploaded_file in uploaded_files:
-        # Baca gambar
+    for idx, uploaded_file in enumerate(uploaded_files):
+        # Pilih kolom berdasarkan indeks
+        col = cols[idx % col_count]
+        
+        # Baca dan tampilkan gambar di kolom yang dipilih
         img = image.load_img(uploaded_file, target_size=(224, 224))
-        
-        # Tampilkan gambar di kolom kiri
-        with col1:
-            st.image(img, caption=uploaded_file.name, use_container_width=True)
-        
-        # Proses prediksi
+        col.image(img, caption=uploaded_file.name, use_container_width=True)
+
+        # Pra-pemrosesan gambar
         img_array = image.img_to_array(img)
         img_array = np.expand_dims(img_array, axis=0) / 255.0
-        
-        # Tampilkan hasil prediksi di kolom kanan
-        with col2:
-            if model:
-                pred = model.predict(img_array)
-                pred_kelas = np.argmax(pred, axis=1)[0]
-                kelas_terpilih = kelas[pred_kelas]
-                confidence = np.max(pred) * 100
-                
-                st.write(f"**Prediksi:** {kelas_terpilih}")
-                st.write(f"**Kepercayaan:** {confidence:.2f}%")
-            else:
-                st.warning("Model belum dimuat.")
+
+        # Prediksi jika model sudah dimuat
+        if model:
+            pred = model.predict(img_array)
+            pred_kelas = np.argmax(pred, axis=1)[0]
+            kelas_terpilih = kelas[pred_kelas]
+            confidence = np.max(pred) * 100
+
+            col.write(f"Prediksi: **{kelas_terpilih}**")
+            col.write(f"Kepercayaan: {confidence:.2f}%")
+        else:
+            col.warning("Model belum berhasil dimuat.")
