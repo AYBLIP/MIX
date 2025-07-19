@@ -23,36 +23,33 @@ optimizer_choice = st.selectbox("Optimizer", optimizer_options)
 
 # Tentukan path model berdasarkan pilihan
 if model_choice == 'NASNetMobile' and optimizer_choice == 'Adam':
-    gdrive_link = 'https://drive.google.com/file/d/1f4KoGXAed_E14IpOWQllAH_uj0i53EkA/view?usp=drive_link'  # Ganti dengan link nyata
-    try:
-        file_id = gdrive_link.split('/d/')[1].split('/')[0]
-        model_filename = 'best_model_NASNetMobile_Adam.h5'
-        gdown.download(f'https://drive.google.com/uc?id={file_id}', model_filename, quiet=False)
-        model_path = model_filename
-    except Exception as e:
-        st.error(f"Gagal mengunduh model dari Google Drive: {str(e)}")
+    gdrive_link = 'https://drive.google.com/file/d/FILE_ID/view?usp=sharing'  # Ganti dengan link nyata
+    # Ekstrak file ID dari link
+    file_id = gdrive_link.split('/d/')[1].split('/')[0]
+    # Nama file lokal
+    model_filename = 'NASNetMobile_Adam.keras'
+    # Unduh file dari Google Drive
+    gdown.download(f'https://drive.google.com/uc?id={file_id}', model_filename, quiet=False)
+    model_path = model_filename
 else:
     if model_choice in ['MobileNetV2', 'NASNetMobile']:
         model_path = f'best_model_{model_choice}_{optimizer_choice}.h5'
-
-# Memuat model jika path sudah ditentukan
-if model_path:
-    try:
-        if model_choice == 'EfficientNetB0':
-            model = tf.keras.models.load_model(
-                model_path,
-                custom_objects={
-                    'swish': swish,
-                    'FixedDropout': FixedDropout
-                }
-            )
-        st.success(f"Model {model_choice} dengan optimizer {optimizer_choice} berhasil dimuat.")
-    except Exception as e:
-        model = None
-        st.error(f"Gagal memuat model dari {model_path}. Error: {str(e)}")
-else:
-    st.warning("Path model tidak ditemukan. Pastikan file model tersedia dan path benar.")
-# Muat model
+    else:
+    if model_choice in ['EfficientNetB0']:
+        model_path = f'best_model_{model_choice}_{optimizer_choice}.h5'
+        model = tf.keras.models.load_model(model_path)
+    else:
+        model = tf.keras.models.load_model(
+            model_path,
+            custom_objects={
+                'swish': swish,
+                'FixedDropout': FixedDropout
+            }
+        )
+    st.success(f"Model {model_choice} dengan optimizer {optimizer_choice} berhasil dimuat.")
+except Exception as e:
+    model = None
+    st.error(f"Gagal memuat model dari {model_path}. Error: {str(e)}")
 
 # Daftar kelas
 kelas = ['Kue Dadar Gulung', 'Kue Kastengel', 'Kue Klepon', 'Kue Lapis', 'Kue Lumpur', 'Kue Putri Salju', 'Kue Risoles', 'Kue Serabi']
