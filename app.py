@@ -79,7 +79,7 @@ if uploaded_files:
         
         # Baca dan tampilkan gambar di kolom yang dipilih
         img = image.load_img(uploaded_file, target_size=(224, 224))
-        col.image(img, caption=uploaded_file.name, use_container_width=0.5)
+        col.image(img, caption=uploaded_file.name)
 
         # Pra-pemrosesan gambar
         img_array = image.img_to_array(img)
