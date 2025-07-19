@@ -79,7 +79,7 @@ if uploaded_files:
         
         # Baca dan tampilkan gambar di kolom yang dipilih
         img = image.load_img(uploaded_file, target_size=(224, 224))
-        col.image(img, caption=uploaded_file.name, use_container_width=True)
+        col.image(img, caption=uploaded_file.name, use_container_width=1)
 
         # Pra-pemrosesan gambar
         img_array = image.img_to_array(img)
@@ -93,6 +93,5 @@ if uploaded_files:
             confidence = np.max(pred) * 100
 
             col.write(f"Prediksi: **{kelas_terpilih}**")
-            col.write(f"Kepercayaan: {confidence:.2f}%")
         else:
             col.warning("Model belum berhasil dimuat.")
