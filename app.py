@@ -36,13 +36,13 @@ else:
         model_path = f'best_model_{model_choice}_{optimizer_choice}.h5'
     else:
         try:
-        if model_choice in ['EfficientNetB0']:
-        model = tf.keras.models.load_model(
-            model_path,
-            custom_objects={
-                'swish': swish,
-                'FixedDropout': FixedDropout
-            }
+            if model_choice in ['EfficientNetB0']:
+            model = tf.keras.models.load_model(
+                model_path,
+                custom_objects={
+                    'swish': swish,
+                    'FixedDropout': FixedDropout
+                }
         )
     st.success(f"Model {model_choice} dengan optimizer {optimizer_choice} berhasil dimuat.")
 except Exception as e:
