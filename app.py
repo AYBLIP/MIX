@@ -35,10 +35,7 @@ else:
     if model_choice in ['MobileNetV2', 'NASNetMobile']:
         model_path = f'best_model_{model_choice}_{optimizer_choice}.h5'
     else:
-        model_path = f'best_model_{model_choice}_{optimizer_choice}.keras'
-
-# Muat model
-try:
+        try:
     if model_choice in ['EfficientNetB0']:
         model = tf.keras.models.load_model(
             model_path,
@@ -51,6 +48,9 @@ try:
 except Exception as e:
     model = None
     st.error(f"Gagal memuat model dari {model_path}. Error: {str(e)}")
+
+# Muat model
+
 # Daftar kelas
 kelas = ['Kue Dadar Gulung', 'Kue Kastengel', 'Kue Klepon', 'Kue Lapis', 'Kue Lumpur', 'Kue Putri Salju', 'Kue Risoles', 'Kue Serabi']
 
