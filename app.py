@@ -32,7 +32,7 @@ if model_choice == 'NASNetMobile' and optimizer_choice == 'Adam':
     except Exception as e:
         st.error(f"Gagal mengunduh model dari Google Drive: {str(e)}")
 else:
-    if model_choice in ['MobileNetV2', 'EfficientNetB0']:
+    if model_choice in ['MobileNetV2', 'NASNetMobile']:
         model_path = f'best_model_{model_choice}_{optimizer_choice}.h5'
 
 # Memuat model jika path sudah ditentukan
