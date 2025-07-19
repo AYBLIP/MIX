@@ -4,6 +4,13 @@ from tensorflow.keras.preprocessing import image
 import numpy as np
 import gdown
 
+def swish(x):
+    return x * tf.nn.sigmoid(x)
+
+# Definisikan kelas FixedDropout jika digunakan
+class FixedDropout(tf.keras.layers.Dropout):
+    def call(self, inputs, training=None):
+        return super().call(inputs, training=True)
 st.title("Klasifikasi Kue dengan Streamlit")
 
 # Pilihan model
