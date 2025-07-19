@@ -46,14 +46,6 @@ if model_path:
                     'FixedDropout': FixedDropout
                 }
             )
-        else:
-            model = tf.keras.models.load_model(
-                model_path,
-                custom_objects={
-                    'swish': swish,
-                    'FixedDropout': FixedDropout
-                }
-            )
         st.success(f"Model {model_choice} dengan optimizer {optimizer_choice} berhasil dimuat.")
     except Exception as e:
         model = None
