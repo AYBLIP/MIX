@@ -99,5 +99,3 @@ if uploaded_files:
         
                     col.write(f"Prediksi: **{kelas_terpilih}**")
                     col.write(f"Confidence: {confidence:.2f}%")
-            else:
-                    col.warning("Model belum berhasil dimuat.")
