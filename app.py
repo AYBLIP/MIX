@@ -86,7 +86,7 @@ if uploaded_files:
         img_array = np.expand_dims(img_array, axis=0) / 255.0
 
         # Prediksi jika model sudah dimuat
-       if model:
+if model:
             pred = model.predict(img_array)
             pred_kelas_idx = np.argmax(pred, axis=1)[0]
             confidence = np.max(pred) * 100  # confidence dalam persen
