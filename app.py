@@ -95,7 +95,7 @@ if uploaded_files:
                     if confidence >= 80:
                         kelas_terpilih = kelas[pred_kelas_idx]
                     else:
-                        kelas_terpilih = "Bukan Kue"
+                        kelas_terpilih = "Bukan Kue yang dikenali"
         
                     col.write(f"Prediksi: **{kelas_terpilih}**")
                     col.write(f"Confidence: {confidence:.2f}%")
